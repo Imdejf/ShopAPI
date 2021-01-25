@@ -2,6 +2,8 @@
 Shop.MVC/obj/
 Shop.MVC/wwwroot/lib/
 Shop.MVC/obj/Debug/
-Shop.MVC/bin/
+Shop.MVC/bin/ 
 Shop.DataAccess/obj/Debug/
 Shop.DataAccess/obj/
+Shop.Utility/obj/
+Shop.Utility/bin/ 
