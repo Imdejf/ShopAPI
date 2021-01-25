@@ -6,4 +6,5 @@ Shop.MVC/bin/
 Shop.DataAccess/obj/Debug/
 Shop.DataAccess/obj/
 Shop.Utility/obj/
-Shop.Utility/bin/ 
+Shop.Models/bin/ 
+Shop.Models/obj/

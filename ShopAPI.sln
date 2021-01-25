@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.DataAccess", "Shop.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Utility", "Shop.Utility\Shop.Utility.csproj", "{687C91E8-3960-4FC3-AC01-822BE2217992}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Models", "Shop.Models\Shop.Models.csproj", "{03C34CEA-8024-4147-A213-1F5D3E9EBC92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{687C91E8-3960-4FC3-AC01-822BE2217992}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{687C91E8-3960-4FC3-AC01-822BE2217992}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{687C91E8-3960-4FC3-AC01-822BE2217992}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C34CEA-8024-4147-A213-1F5D3E9EBC92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C34CEA-8024-4147-A213-1F5D3E9EBC92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C34CEA-8024-4147-A213-1F5D3E9EBC92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C34CEA-8024-4147-A213-1F5D3E9EBC92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
