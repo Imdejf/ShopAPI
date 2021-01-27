@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
+using Shop.Models;
 namespace Shop.DataAccess
 {
     public class ShopDbContext : IdentityDbContext
@@ -8,5 +8,7 @@ namespace Shop.DataAccess
         public ShopDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<Category> Category { get; set; }
     }
 }

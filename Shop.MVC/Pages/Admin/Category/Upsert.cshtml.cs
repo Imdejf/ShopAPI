@@ -35,11 +35,11 @@ namespace Shop.MVC
         }
         public IActionResult OnPost()
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
-            if(CategoryObj.Id == 0)
+            if (CategoryObj.Id == 0)
             {
                 _unitOfWork.Category.Add(CategoryObj);
             }

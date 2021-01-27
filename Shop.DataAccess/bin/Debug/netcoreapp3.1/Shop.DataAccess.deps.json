@@ -12,6 +12,7 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.11",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.11",
+          "Shop.Models": "1.0.0",
           "Shop.Utility": "1.0.0",
           "Stripe.net": "39.33.0"
         },
@@ -1926,6 +1927,16 @@
           "System.Xml.XPath": "4.3.0"
         }
       },
+      "Shop.Models/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.11",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.11",
+          "Microsoft.AspNetCore.Mvc": "2.2.0"
+        },
+        "runtime": {
+          "Shop.Models.dll": {}
+        }
+      },
       "Shop.Utility/1.0.0": {
         "runtime": {
           "Shop.Utility.dll": {}
@@ -3366,6 +3377,11 @@
       "sha512": "sha512-jw9oHHEIVW53mHY9PgrQa98Xo2IZ0ZjrpdOTmtvk+Rvg4tq7dydmxdNqUvJ5YwjDqhn75mBXWttWjiKhWP53LQ==",
       "path": "system.xml.xpath.xdocument/4.3.0",
       "hashPath": "system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
+    },
+    "Shop.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Shop.Utility/1.0.0": {
       "type": "project",

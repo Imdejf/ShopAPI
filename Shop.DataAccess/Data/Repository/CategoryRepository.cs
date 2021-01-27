@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Shop.DataAccess.Data.Repository.IRepository;
+using Shop.Models;
 using System.Collections.Generic;
 using System.Linq;
 namespace Shop.DataAccess.Data.Repository
