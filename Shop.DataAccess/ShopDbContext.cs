@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shop.Models;
+using System.Collections.Generic;
+
 namespace Shop.DataAccess
 {
     public class ShopDbContext : IdentityDbContext
@@ -10,5 +12,6 @@ namespace Shop.DataAccess
         }
 
         public DbSet<Category> Category { get; set; }
+        public DbSet<FoodType> FoodType { get; set; }
     }
 }

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.MVC", "Shop.MVC\Shop.MVC.csproj", "{7A855B66-2A69-4DD2-BE50-5722FECFD98C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.MVC", "Shop.MVC\Shop.MVC.csproj", "{7A855B66-2A69-4DD2-BE50-5722FECFD98C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.DataAccess", "Shop.DataAccess\Shop.DataAccess.csproj", "{4B6532F2-C992-4C21-8784-E7A11FC9137E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.DataAccess", "Shop.DataAccess\Shop.DataAccess.csproj", "{4B6532F2-C992-4C21-8784-E7A11FC9137E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Utility", "Shop.Utility\Shop.Utility.csproj", "{687C91E8-3960-4FC3-AC01-822BE2217992}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Utility", "Shop.Utility\Shop.Utility.csproj", "{687C91E8-3960-4FC3-AC01-822BE2217992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Models", "Shop.Models\Shop.Models.csproj", "{03C34CEA-8024-4147-A213-1F5D3E9EBC92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Models", "Shop.Models\Shop.Models.csproj", "{03C34CEA-8024-4147-A213-1F5D3E9EBC92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,6 +15,7 @@ namespace Shop.DataAccess.Data.Repository
             Category = new CategoryRepository(_db);
         }
         public ICategoryRepository Category { get; private set; }
+        public IFoodTypeRepository FoodType { get; private set; }
 
         public void Dispose()
         {
