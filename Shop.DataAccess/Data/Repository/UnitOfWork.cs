@@ -16,6 +16,7 @@ namespace Shop.DataAccess.Data.Repository
         }
         public ICategoryRepository Category { get; private set; }
         public IFoodTypeRepository FoodType { get; private set; }
+        public IMenuItemRepository menuItem { get; private set; }
 
         public void Dispose()
         {
