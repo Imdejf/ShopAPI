@@ -8,6 +8,7 @@ namespace Shop.DataAccess.Data.Repository.IRepository
     {
         ICategoryRepository Category { get; }
         IFoodTypeRepository FoodType { get; }
+        IMenuItemRepository MenuItem { get; }
         void Save();
     }
 }
