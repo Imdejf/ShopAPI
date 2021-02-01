@@ -1,6 +1,5 @@
 .vs/
 Shop.MVC/obj/
-Shop.MVC/wwwroot/lib/
 Shop.MVC/obj/Debug/
 Shop.MVC/bin/ 
 Shop.DataAccess/bin/
@@ -8,4 +7,3 @@ Shop.DataAccess/obj/
 Shop.Utility/obj/
 Shop.Models/bin/ 
 Shop.Models/obj/
-Shop.DataAccess/
