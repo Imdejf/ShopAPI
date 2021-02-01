@@ -16,8 +16,6 @@ namespace Shop.DataAccess.Data.Repository
         {
             _db = db;
         }
-
-
         public IEnumerable<SelectListItem> GetFoodTypeListForDropDown()
         {
             return _db.FoodType.Select(i => new SelectListItem()
@@ -26,7 +24,6 @@ namespace Shop.DataAccess.Data.Repository
                 Value = i.Id.ToString()
             });
         }
-
         public void Update(FoodType objectToBeUpdated)
         {
             var categoryFromDb = _db.FoodType.FirstOrDefault(s => s.Id == objectToBeUpdated.Id);

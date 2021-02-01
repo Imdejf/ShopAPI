@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess.Data.Repository.IRepository;
 
-namespace Shop.MVC.Controllers
+namespace Shop.MVC.Pages.Admin.Category.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Shop.DataAccess.Data.Repository.IRepository;
 using Shop.Models;
 
-namespace Shop.MVC
+namespace Shop.MVC.Pages.Admin.Category
 {
     public class UpsertModel : PageModel
     {
@@ -17,22 +17,26 @@ namespace Shop.MVC
         {
             _unitOfWork = unitOfWork;
         }
+
         [BindProperty]
         public Models.Category CategoryObj { get; set; }
 
         public IActionResult OnGet(int? id)
         {
             CategoryObj = new Models.Category();
-            if(id != null)
+            if (id != null)
             {
-                CategoryObj = _unitOfWork.Category.GetFirstOrDefualt(s => s.Id == id);
-                if(CategoryObj == null)
+                CategoryObj = _unitOfWork.Category.GetFirstOrDefualt(u => u.Id == id);
+                if (CategoryObj == null)
                 {
                     return NotFound();
                 }
             }
             return Page();
+
         }
+
+
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)

@@ -34,8 +34,6 @@ namespace Shop.MVC.Pages.Admin.FoodType
             return Page();
 
         }
-
-
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)

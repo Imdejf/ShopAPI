@@ -7,25 +7,25 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shop.MVC.Controllers
+namespace Shop.MVC.Pages.Admin.MenuItem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MenuItemController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public MenuItemController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
+        public MenuItemController(IUnitOfWork unitOfWork, IWebHostEnvironment hostingEnvironment)
         {
             _unitOfWork = unitOfWork;
-            _webHostEnvironment = webHostEnvironment;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.FoodType.GetAll(null, null,"Category,FoodType") });
+            return Json(new { data = _unitOfWork.MenuItem.GetAll(null, null, "Category,FoodType") });
         }
 
         [HttpDelete("{id}")]
@@ -33,24 +33,24 @@ namespace Shop.MVC.Controllers
         {
             try
             {
-            var objFromDb = _unitOfWork.MenuItem.GetFirstOrDefualt(u => u.Id == id);
-            if (objFromDb == null)
+                var objFromDb = _unitOfWork.MenuItem.GetFirstOrDefualt(u => u.Id == id);
+                if (objFromDb == null)
+                {
+                    return Json(new { success = false, message = "Error while deleting." });
+                }
+
+                var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, objFromDb.Image.TrimStart('\\'));
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+
+                _unitOfWork.MenuItem.Remove(objFromDb);
+                _unitOfWork.Save();
+            }
+            catch (Exception ex)
             {
                 return Json(new { success = false, message = "Error while deleting." });
-            }
-
-            var imagePath = Path.Combine(_webHostEnvironment.WebRootPath,objFromDb.Image.TrimStart('\\'));
-            if(System.IO.File.Exists(imagePath))
-            {
-                System.IO.File.Delete(imagePath);
-            }
-
-            _unitOfWork.MenuItem.Remove(objFromDb);
-            _unitOfWork.Save();
-            }
-            catch(Exception ex)
-            {
-                return Json(new { success = true, message = "Error while deleting." });
             }
             return Json(new { success = true, message = "Delete success." });
         }
