@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Shop.DataAccess.Data.Repository.IRepository;
 using Shop.Models;
+using Shop.Utility;
 
 namespace Shop.MVC.Pages.Customer.Home
 {
@@ -23,6 +26,15 @@ namespace Shop.MVC.Pages.Customer.Home
 
         public void OnGet()
         {
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+            if(claim != null)
+            {
+                int shoppingCartCount = _unitOfWork.ShoppingCart.GetAll(s => s.ApplicationUserId == claim.Value).ToList().Count;
+                HttpContext.Session.SetInt32(SD.ShoppingCart, shoppingCartCount);
+            }
+
             MenuItemList = _unitOfWork.MenuItem.GetAll(null, null, "Category,FoodType");
             CategoryList = _unitOfWork.Category.GetAll(null, q => q.OrderBy(c => c.DisplayOrder), null);
         }
