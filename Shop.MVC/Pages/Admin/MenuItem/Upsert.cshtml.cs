@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Shop.DataAccess.Data.Repository.IRepository;
-using Shop.Models;
 using Shop.Models.ViewModels;
+using Shop.Utility;
+using System;
+using System.IO;
 
 namespace Shop.MVC.Pages.Admin.MenuItem
 {
+    [Authorize(Roles = SD.ManagerRole)]
     public class UpsertModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;

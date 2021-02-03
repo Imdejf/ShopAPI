@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess.Data.Repository.IRepository;
 
-namespace Shop.MVC.Pages.Admin.Category.Controllers
+namespace Shop.MVC.Pages.Admin.Category.CategoryController
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : Controller
+    public class UserController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryController(IUnitOfWork unitOfWork)
+        public UserController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -22,20 +22,30 @@ namespace Shop.MVC.Pages.Admin.Category.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.Category.GetAll()});
+            return Json(new { data = _unitOfWork.ApplicationUser.GetAll() });
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+
+        [HttpPost]
+        public IActionResult LockUnlock([FromBody] string id)
         {
-            var objFromDb = _unitOfWork.Category.GetFirstOrDefualt(u => u.Id == id);
+            var objFromDb = _unitOfWork.ApplicationUser.GetFirstOrDefualt(u => u.Id == id);
             if (objFromDb == null)
             {
-                return Json(new { success = false, message = "Error while deleting" });
+                return Json(new { success = false, message = "Error while Locking/Unlocking" });
             }
-            _unitOfWork.Category.Remove(objFromDb);
+            if (objFromDb.LockoutEnd != null && objFromDb.LockoutEnd > DateTime.Now)
+            {
+                objFromDb.LockoutEnd = DateTime.Now;
+            }
+            else
+            {
+                objFromDb.LockoutEnd = DateTime.Now.AddYears(100);
+            }
             _unitOfWork.Save();
-            return Json(new { success = true, message = "Delete successful" });
+
+
+            return Json(new { success = true, message = "Operation Successful." });
         }
     }
 }

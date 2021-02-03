@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.DataAccess.Data.Repository.IRepository;
+using Shop.Utility;
 
 namespace Shop.MVC.Pages.Admin.Category.Controllers
 {

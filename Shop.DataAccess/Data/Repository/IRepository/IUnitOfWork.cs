@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Shop.DataAccess.Data.Repository.IRepository
 {
@@ -9,7 +7,7 @@ namespace Shop.DataAccess.Data.Repository.IRepository
         ICategoryRepository Category { get; }
         IFoodTypeRepository FoodType { get; }
         IMenuItemRepository MenuItem { get; }
-        IMenuItemRepository ApplicationUser { get; }
+        IApplicationUserRepository ApplicationUser { get; }
 
         void Save();
     }
