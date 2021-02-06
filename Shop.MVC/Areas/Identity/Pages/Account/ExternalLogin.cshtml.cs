@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Shop.Models;
+using Shop.Utility;
 
 namespace Shop.MVC.Areas.Identity.Pages.Account
 {
@@ -23,12 +25,14 @@ namespace Shop.MVC.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public ExternalLoginModel(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -51,6 +55,15 @@ namespace Shop.MVC.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+            [Required]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
+            [Required]
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+            [Display(Name = "Last Name ")]
+            [Required]
+            public string LastName { get; set; }
         }
 
         public IActionResult OnGetAsync()
@@ -97,11 +110,16 @@ namespace Shop.MVC.Areas.Identity.Pages.Account
                 // If the user does not have an account, then ask the user to create an account.
                 ReturnUrl = returnUrl;
                 ProviderDisplayName = info.ProviderDisplayName;
+
                 if (info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
                 {
+                    
+                    string[] fullName = info.Principal.FindFirstValue(ClaimTypes.Name).Split(' ');
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                        FirstName = fullName[0],
+                        LastName = fullName[1]
                     };
                 }
                 return Page();
@@ -121,11 +139,19 @@ namespace Shop.MVC.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser 
+                {
+                    UserName = Input.Email, 
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    PhoneNumber = Input.PhoneNumber
+                };
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, SD.CustomerRole);
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {

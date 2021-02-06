@@ -11,6 +11,7 @@ using Shop.DataAccess;
 using Shop.DataAccess.Data.Repository;
 using Shop.DataAccess.Data.Repository.IRepository;
 using Shop.Utility;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,10 +50,22 @@ namespace Shop.MVC
                 options.Cookie.IsEssential = true;
             });
 
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+
             services.AddMvc(options => options.EnableEndpointRouting = false)
                 .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = "338429230766356";
+                facebookOptions.AppSecret = "6983567cecea878779c1fc75a1dee459";
+            });
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = "47ebbb78-7281-493e-9b86-90fb106a7d6f";
+                microsoftOptions.ClientSecret = "Ze~lziu8DV5Z5JHf25jiqi~8s.-BytKB.2";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +90,8 @@ namespace Shop.MVC
             app.UseAuthorization();
 
             app.UseMvc();
+
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
         }
     }
 }

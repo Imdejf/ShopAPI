@@ -14,6 +14,8 @@ namespace Shop.DataAccess.Data.Repository
             MenuItem = new MenuItemRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
             ShoppingCart = new ShoppingCartRepository(_db);
+            OrderHeader = new OrderHeaderRepository(_db);
+            OrderDetails = new OrderDetailsRepository(_db);
 
         }
         public ICategoryRepository Category { get; private set; }
@@ -21,6 +23,9 @@ namespace Shop.DataAccess.Data.Repository
         public IMenuItemRepository MenuItem { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IShoppingCartRepository ShoppingCart { get; private set; }
+        public IOrderHeaderRepository  OrderHeader { get; private set; }
+        public IOrderDetailsRepository OrderDetails { get; private set; }
+
 
 
 

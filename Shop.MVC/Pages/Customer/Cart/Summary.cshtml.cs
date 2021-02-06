@@ -21,7 +21,7 @@ namespace Shop.MVC.Pages.Customer.Cart
         {
             _unitOfWork = unitOfWork;
         }
-
+        [BindProperty]
         public OrderDetailsCartVM detailCart { get; set; }
         public IActionResult OnGet()
         {
