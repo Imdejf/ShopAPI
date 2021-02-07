@@ -9,10 +9,12 @@ namespace Shop.Models
     public class OrderDetails
     {
         public int Id { get; set; }
+
         [Required]
         public int OrderId { get; set; }
         [ForeignKey("OrderId")]
         public virtual OrderHeader OrderHeader { get; set; }
+
         [Required]
         public int MenuItemId { get; set; }
         [ForeignKey("MenuItemId")]
@@ -20,11 +22,10 @@ namespace Shop.Models
 
         public int Count { get; set; }
         public string Name { get; set; }
+
         public string Description { get; set; }
+
         [Required]
         public double Price { get; set; }
-
-
-
     }
 }

@@ -12,9 +12,10 @@ namespace Shop.Models
         {
             Count = 1;
         }
-        
         public int Id { get; set; }
+
         public int MenuItemId { get; set; }
+
         [NotMapped]
         [ForeignKey("MenuItemId")]
         public virtual MenuItem MenuItem { get; set; }
@@ -25,7 +26,8 @@ namespace Shop.Models
         [ForeignKey("ApplicationUserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-        [Range(1,100,ErrorMessage ="Please select a count between 1 and 100")]
+
+        [Range(1, 100, ErrorMessage = "Please select a count between 1 and 100")]
         public int Count { get; set; }
     }
 }

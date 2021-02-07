@@ -10,8 +10,10 @@ namespace Shop.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         public string UserId { get; set; }
+
         [ForeignKey("UserId")]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
@@ -30,13 +32,14 @@ namespace Shop.Models
         [Required]
         [NotMapped]
         public DateTime PickUpDate { get; set; }
+
         public string Status { get; set; }
+
         public string PaymentStatus { get; set; }
         public string Comments { get; set; }
 
         [Display(Name = "Pickup Name")]
-        public string PickUpName { get; set; }
-
+        public string PickupName { get; set; }
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
         public string TransactionId { get; set; }

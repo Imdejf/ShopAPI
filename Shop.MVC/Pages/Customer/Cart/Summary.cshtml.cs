@@ -17,28 +17,34 @@ namespace Shop.MVC.Pages.Customer.Cart
     public class SummaryModel : PageModel
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public SummaryModel(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         [BindProperty]
         public OrderDetailsCartVM detailCart { get; set; }
+
         public IActionResult OnGet()
         {
             detailCart = new OrderDetailsCartVM()
             {
                 OrderHeader = new Models.OrderHeader()
             };
+
             detailCart.OrderHeader.OrderTotal = 0;
 
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
             IEnumerable<ShoppingCart> cart = _unitOfWork.ShoppingCart.GetAll(c => c.ApplicationUserId == claim.Value);
+
             if (cart != null)
             {
                 detailCart.listCart = cart.ToList();
             }
+
             foreach (var cartList in detailCart.listCart)
             {
                 cartList.MenuItem = _unitOfWork.MenuItem.GetFirstOrDefualt(m => m.Id == cartList.MenuItemId);
@@ -46,10 +52,11 @@ namespace Shop.MVC.Pages.Customer.Cart
             }
 
             ApplicationUser applicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefualt(c => c.Id == claim.Value);
-            detailCart.OrderHeader.PickUpName = applicationUser.FullName;
+            detailCart.OrderHeader.PickupName = applicationUser.FullName;
             detailCart.OrderHeader.PickUpTime = DateTime.Now;
             detailCart.OrderHeader.PhoneNumber = applicationUser.PhoneNumber;
             return Page();
+
         }
 
         public IActionResult OnPost(string stripeToken)
@@ -64,10 +71,10 @@ namespace Shop.MVC.Pages.Customer.Cart
             detailCart.OrderHeader.UserId = claim.Value;
             detailCart.OrderHeader.Status = SD.PaymentStatusPending;
             detailCart.OrderHeader.PickUpTime = Convert.ToDateTime(detailCart.OrderHeader.PickUpDate.ToShortDateString() + " " + detailCart.OrderHeader.PickUpTime.ToShortTimeString());
+
             List<OrderDetails> orderDetailsList = new List<OrderDetails>();
             _unitOfWork.OrderHeader.Add(detailCart.OrderHeader);
             _unitOfWork.Save();
-
 
             foreach (var item in detailCart.listCart)
             {
@@ -83,20 +90,23 @@ namespace Shop.MVC.Pages.Customer.Cart
                 };
                 detailCart.OrderHeader.OrderTotal += (orderDetails.Count * orderDetails.Price);
                 _unitOfWork.OrderDetails.Add(orderDetails);
+
             }
+            detailCart.OrderHeader.OrderTotal = Convert.ToDouble(String.Format("{0:.##}", detailCart.OrderHeader.OrderTotal));
             _unitOfWork.ShoppingCart.RemoveRange(detailCart.listCart);
             HttpContext.Session.SetInt32(SD.ShoppingCart, 0);
             _unitOfWork.Save();
 
             if (stripeToken != null)
             {
+
                 var options = new ChargeCreateOptions
                 {
-                    //Amounts is in cents
+                    //Amount is in cents
                     Amount = Convert.ToInt32(detailCart.OrderHeader.OrderTotal * 100),
-                    Currency = "pln",
-                    Source = stripeToken,
-                    Description = "Order ID :" + detailCart.OrderHeader.Id,
+                    Currency = "usd",
+                    Description = "Order ID : " + detailCart.OrderHeader.Id,
+                    Source = stripeToken
                 };
                 var service = new ChargeService();
                 Charge charge = service.Create(options);
@@ -105,6 +115,7 @@ namespace Shop.MVC.Pages.Customer.Cart
 
                 if (charge.Status.ToLower() == "succeeded")
                 {
+                    //email 
                     detailCart.OrderHeader.PaymentStatus = SD.PaymentStatusApproved;
                     detailCart.OrderHeader.Status = SD.StatusSubmitted;
                 }
@@ -119,7 +130,8 @@ namespace Shop.MVC.Pages.Customer.Cart
             }
             _unitOfWork.Save();
 
-            return RedirectToPage("/Customer/Cart/OrderConfirmation", new { id = detailCart.OrderHeader.Id }) ;
+            return RedirectToPage("/Customer/Cart/OrderConfirmation", new { id = detailCart.OrderHeader.Id });
+
         }
     }
 }
